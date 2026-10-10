@@ -1,0 +1,16 @@
+# Python Virtual Environments
+venv/
+.venv/
+env/
+
+# Python compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Temporary resume files folder
+temp_resumes/
+
+# IDE specific files
+.vscode/
+.idea/

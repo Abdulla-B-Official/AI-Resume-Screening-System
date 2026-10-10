@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProITbridge | AI Resume Screening System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="astra-wrapper">
+        <!-- Header -->
+        <header class="astra-header">
+            <div class="logo-area">
+                <span class="badge">ProITbridge AI</span>
+                <h1>Resume Screening & Ranking Intelligence</h1>
+            </div>
+            <p class="subtitle">Lightning-fast semantic vector matching engine powered by Sentence Transformers</p>
+        </header>
+
+        <div id="error-banner" class="card error-card" style="display: none; background: #fff1f2; border-color: #fecdd3; color: #be123c; margin-bottom: 20px;">
+            <p><strong id="error-text">⚠️ Error:</strong></p>
+        </div>
+
+        <form id="screening-form" class="astra-form">
+            <!-- Job Description Viewer & Role Switcher -->
+            <section class="card jd-card">
+                <h2>📋 Target Job Description (JD)</h2>
+                <p class="section-desc">Select a preset role below or customize the job description:</p>
+                
+                <div class="role-presets">
+                    <button type="button" class="preset-btn" onclick="setRole('data_engineer')">⚙️ JD 1: Senior Data Engineer</button>
+                    <button type="button" class="preset-btn" onclick="setRole('data_analyst')">📊 JD 2: Data Analyst - BI</button>
+                </div>
+
+                <textarea name="jd_text" id="jd_textarea" rows="8" class="astra-textarea" required>{{ default_jd }}</textarea>
+            </section>
+
+            <!-- Resume Upload Section -->
+            <section class="card upload-card">
+                <h2>📂 Candidate Resumes Upload (Upload 5+ Resumes)</h2>
+                <p class="section-desc">Upload multiple candidate resumes simultaneously. Files will remain attached until you click Clear.</p>
+                
+                <div class="file-dropzone" id="dropzone">
+                    <input type="file" name="files" id="files" multiple accept=".pdf,.docx,.txt" class="file-input">
+                    <label for="files" class="file-label" id="file-label-content">
+                        <svg width="40" height="40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+                        <span>Click to browse or drag & drop 5+ candidate files here</span>
+                    </label>
+                    <div id="selected-files-container" class="selected-files-list"></div>
+                </div>
+                
+                <div class="format-note">
+                    <span class="note-icon">ℹ️</span>
+                    <span><strong>Supported Formats:</strong> PDF (`.pdf`), Word Documents (`.docx`), and Text (`.txt`).</span>
+                </div>
+            </section>
+
+            <!-- Side-by-Side Action Buttons -->
+            <div class="action-bar-side">
+                <button type="button" id="clear-btn" class="btn-secondary">🗑️ Clear Files</button>
+                <button type="button" id="run-btn" class="btn-primary">⚡ Run Lightning Screening</button>
+            </div>
+        </form>
+
+        <!-- Dynamic Results Section -->
+        <section class="card results-card" id="results-section" style="display: none;">
+            <h2>🏆 Shortlisted Candidates Ranking</h2>
+            <div class="table-responsive">
+                <table class="astra-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Candidate File</th>
+                            <th>Fit Score</th>
+                            <th>Extracted Snippet Preview</th>
+                        </tr>
+                    </thead>
+                    <tbody id="results-tbody">
+                        <!-- Dynamically populated via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
